@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
+import battleService from "../services/battleService.js";
 
 export async function battle(req: Request, res: Response) {
-    return res.status(200).send("batl");
+    const { firstUser, secondUser }: { firstUser: string; secondUser: string } = req.body;
+    const firstUserData = await battleService.getTotalStar(firstUser);
+    const secondUserData = await battleService.getTotalStar(secondUser);
+    const battleResult = await battleService.compareStars(firstUserData, secondUserData);
+    return res.status(200).send(battleResult);
 }
