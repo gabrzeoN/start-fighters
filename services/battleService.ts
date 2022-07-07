@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import battleRespository from "../repositories/battleRepository.js"
-
+import chalk from "chalk";
 async function getTotalStar(user: string) {
     const {data} = await getGitHubData(user);
     let stars: number = 0;
@@ -19,7 +19,7 @@ async function getGitHubData(user: string) {
     return userData;
 }
 
-async function compareStars(firstUser, secondUser){
+async function compareStars(firstUser: {name: string, stars: number}, secondUser: {name: string, stars: number}){
     if(firstUser.stars > secondUser.stars){
         saveBattleResult(firstUser.name, secondUser.name, false);
         return {

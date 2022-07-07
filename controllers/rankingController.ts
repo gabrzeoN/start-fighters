@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import rankingService from "../services/rankingService.js";
 
 export async function showRanking(req: Request, res: Response) {
-    return res.status(200).send("ran");
+    const ranking = await rankingService.showRanking();
+    return res.status(200).send(ranking);
 }
