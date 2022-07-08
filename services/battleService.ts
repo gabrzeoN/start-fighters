@@ -12,11 +12,17 @@ async function getTotalStar(user: string) {
 }
 
 async function getGitHubData(user: string) {
-    const userData: AxiosResponse = await axios.get(`https://api.github.com/users/${user}/repos`);
-    if(userData.data.message){
+    try{
+        const userData: AxiosResponse = await axios.get(`https://api.github.com/users/${user}/repos`);
+        return userData;
+    }catch(error){
         throw {type: "notFound", message: "User is not register on GitHub!"};
     }
-    return userData;
+    // const userData: AxiosResponse = await axios.get(`https://api.github.com/users/${user}/repos`);
+    // if(!userData){
+    //     throw {type: "notFound", message: "User is not register on GitHub!"};
+    // }
+    // return userData;
 }
 
 async function compareStars(firstUser: {name: string, stars: number}, secondUser: {name: string, stars: number}){
