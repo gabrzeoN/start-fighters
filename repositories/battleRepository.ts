@@ -1,7 +1,15 @@
 import connection from "./../config/db.js";
 
+interface Fighter {
+    id: number;
+    username: string;
+    wins: number;
+    losses: number;
+    draws:number;
+};
+
 async function fighterExists(userName: string) {
-    const fighterExists =  await connection.query(`
+    const fighterExists =  await connection.query<Fighter>(`
         SELECT *
         FROM fighters
         WHERE username = $1;
